@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:SourceApp.Mobile.Controls"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SourceApp.Mobile.Views.LoginPage">
+    <ContentPage.Content>
+        <StackLayout Spacing="0"  Padding="20">
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Image Source="SourceLogo.png" />
+
+                <controls:EntryEx x:Name="CustomEntry" Placeholder="E-mail" Text="{Binding Email}" BackgroundColor="#edebeb"></controls:EntryEx>
+                <Button BackgroundColor="#20c7f5" TextColor="White" HorizontalOptions="Center" BorderRadius="3" Command="{Binding LoginCommand}" 
+                        Text="SIGN IN"
+                        FontAttributes="Bold"
+                        CornerRadius="5"
+                        ></Button>
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
