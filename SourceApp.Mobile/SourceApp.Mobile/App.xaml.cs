@@ -28,6 +28,11 @@ namespace SourceApp.Mobile
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+            containerRegistry.RegisterForNavigation<WelcomeTabbedPage, WelcomeTabbedPageViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<PostsPage, PostsPageViewModel>();
+            containerRegistry.RegisterForNavigation<GalleryPage, GalleryPageViewModel>();
+            containerRegistry.RegisterForNavigation<AccountPage, AccountPageViewModel>();
         }
     }
 }

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SourceApp.Mobile.Views.HomePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="10"  
+                 OutlineColor="#f7faf8" 
+                 Padding="0"
+                 Margin="10" 
+                 HasShadow="True"  >
+                <StackLayout >
+                    <Label Padding="20" Text="Latest posts" FontSize="20"></Label>
+                    <ListView HorizontalOptions="FillAndExpand"  ItemsSource="{Binding PostsList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout  Margin="10,0,10,0" VerticalOptions="Center">
+                                        <Label LineBreakMode="TailTruncation" WidthRequest="50"
+                                       Text="{Binding title}"></Label>
+                                        <Label  LineBreakMode="TailTruncation" FontSize="10" Text="{Binding body}"></Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button BackgroundColor="#20c7f5" TextColor="White" Padding="0" Margin="0,0,0,10" HorizontalOptions="Center" BorderRadius="3" 
+                    Command="{Binding PostsCommand }"   FontAttributes="Bold"
+                    CornerRadius="5" Text="Show all"></Button>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="10" OutlineColor="#f7faf8" 
+                 Padding="0"
+                 Margin="10"
+                 HasShadow="True"  
+                   >
+                <StackLayout>
+                    <Label Padding="20" Text="Latest images" FontSize="20"></Label>
+                    <CarouselView  IndicatorView="indicatorView"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" ItemsSource="{Binding PhotosList}">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout >
+                                    <Frame HasShadow="True"
+                                        BorderColor="DarkGray"
+                                        CornerRadius="1"
+                                        Padding="10"
+                                        Margin="0"
+                                        HeightRequest="100"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="CenterAndExpand">
+                                        <StackLayout>
+                                            <Image Source="{Binding thumbnailUrl}"
+                                            Aspect="AspectFill"
+                                            HeightRequest="150"
+                                            WidthRequest="150"
+                                            HorizontalOptions="Center" />
+                                        </StackLayout>
+                                    </Frame>
+                                    
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <IndicatorView x:Name="indicatorView"
+                                   IndicatorColor="LightGray"
+                                   SelectedIndicatorColor="DarkGray"
+                                   HorizontalOptions="Center"
+                                   Padding="10"/>
+                    <!--<ListView HorizontalOptions="FillAndExpand"  ItemsSource="{Binding PhotosList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout  Padding="0, 20" VerticalOptions="Center">
+                                        <Image Source="{Binding thumbnailUrl}"></Image>
+                                       
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>-->
+                    
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

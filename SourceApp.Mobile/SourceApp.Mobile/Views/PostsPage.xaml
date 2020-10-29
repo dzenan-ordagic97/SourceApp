@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:SourceApp.Mobile.Controls"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SourceApp.Mobile.Views.PostsPage"
+             >
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="10"  
+                 OutlineColor="#f7faf8" 
+                 Padding="0"
+                 Margin="10" 
+                 HasShadow="True"  >
+                <StackLayout Padding="10">
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <controls:EntryEx x:Name="CustomEntrySearch" BorderColor="White" BorderRadius="5" BorderWidth="0" WidthRequest="200" 
+                             LeftPadding="10" RightPadding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  Placeholder="Search" BackgroundColor="#edebeb"></controls:EntryEx>
+                        </StackLayout>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Button BackgroundColor="#20c7f5" ImageSource="search.png" Padding="0" Margin="0,0,0,0"  HorizontalOptions="Center" WidthRequest="50" BorderRadius="3" 
+                            CornerRadius="5" ></Button>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout >
+                            <CheckBox></CheckBox>
+                        </StackLayout>
+                        <StackLayout Padding="0, 5, 0, 0" >
+                            <Label  Text="Show only my posts"></Label>
+                        </StackLayout>
+                    </StackLayout>
+
+
+                    <ListView HorizontalOptions="FillAndExpand"  ItemsSource="{Binding PostsList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout  Margin="10,0,10,0" VerticalOptions="Center">
+                                        <Label LineBreakMode="TailTruncation" WidthRequest="50"
+                                       Text="{Binding title}"></Label>
+                                        <Label  LineBreakMode="TailTruncation" FontSize="10" Text="{Binding body}"></Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <StackLayout Orientation="Horizontal">
+                        <StackLayout >
+                            <Button IsEnabled="{Binding IsFirstEnabled}" BackgroundColor="#20c7f5" TextColor="White" Padding="0" Margin="0,0,0,10" HorizontalOptions="Center" BorderRadius="3" 
+                            Command="{Binding PreviousCommand }"   FontAttributes="Bold"
+                            CornerRadius="5" Text="PREV"></Button>
+                        </StackLayout>
+                        <StackLayout Padding="0, 5, 0, 0" >
+                            <Button IsEnabled="{Binding IsNextEnabled}" BackgroundColor="#20c7f5" TextColor="White" Padding="0" Margin="0,0,0,10" HorizontalOptions="Center" BorderRadius="3" 
+                            Command="{Binding NextCommand }"   FontAttributes="Bold"
+                            CornerRadius="5" Text="NEXT"></Button>
+                        </StackLayout>
+                    </StackLayout>
+
+                    
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
