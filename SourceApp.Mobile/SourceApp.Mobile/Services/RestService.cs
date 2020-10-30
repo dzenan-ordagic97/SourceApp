@@ -80,31 +80,6 @@ namespace SourceApp.Mobile.Services
                 return default(T);
             }
         }
-        public async Task<T> GetQuery2<T>(object search, object search2)
-        {
-            var url = $"{_apiURL}/{_route}";
-            if (search != null && search2 != null)
-            {
-                url += "?";
-                url += await search.ToQueryString();
-                url += "&";
-                url += await search2.ToQueryString();
-            }
-            //var result = await url.GetJsonAsync<T>();
-            //return result;
-            try
-            {
-                return await url.GetJsonAsync<T>();
-            }
-            catch (FlurlHttpException ex)
-            {
-                if (ex.Call.HttpStatus == System.Net.HttpStatusCode.Unauthorized)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", "You are not authorized!", "OK");
-                }
-                return default(T);
-            }
-        }
         public async Task<ResponseWithPaging<T>> GetWithHeader<T>(object search, int next)
         {
             var url = $"{_apiURL}/{_route}";
@@ -117,7 +92,8 @@ namespace SourceApp.Mobile.Services
             //return result;
             try
             {
-                var responseData = new ResponseWithPaging<T>() {
+                var responseData = new ResponseWithPaging<T>()
+                {
                     IsFirst = false,
                     IsLast = false
                 };
@@ -128,52 +104,59 @@ namespace SourceApp.Mobile.Services
                     return new { data = data, header = header };
                 });
                 var linkHeader = response.Result.header.FirstOrDefault().Split(';');
+
                 Uri _previous = null;
                 Uri _next = null;
                 Uri _last = null;
-                string paramPrevious = "1" ;
+                string paramPrevious = "1";
                 string paramNext = "1";
                 string paramLast = "1";
-
-                if (next > 1 && response.Result.header.FirstOrDefault().Contains("next"))
+                if (linkHeader[0] == "")
                 {
-                    _next = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                    _previous = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                    _last = new Uri(linkHeader[3].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                }
-                if(next == 1)
-                {
-                    _next = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                    _last = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                    
-                }
-
-                if(!response.Result.header.FirstOrDefault().Contains("next"))
-                {
-                    _previous = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                    _last = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
-                }
-                if(next > 1 && response.Result.header.FirstOrDefault().Contains("next"))
-                {
-                    paramPrevious = HttpUtility.ParseQueryString(_previous.Query).Get("_page");
-                    paramNext = HttpUtility.ParseQueryString(_next.Query).Get("_page");
-                    paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
-                }
-                if (next == 1)
-                {
-                    paramPrevious = "1";
-                    paramNext = HttpUtility.ParseQueryString(_next.Query).Get("_page");
-                    paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
+                    responseData.IsLast = true;
                     responseData.IsFirst = true;
                 }
-                if (!response.Result.header.FirstOrDefault().Contains("next"))
+                else
                 {
-                    paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
-                    paramPrevious = HttpUtility.ParseQueryString(_previous.Query).Get("_page");
-                    paramNext = paramLast;
-                    responseData.IsLast = true;
-                }
+                    if (next > 1 && response.Result.header.FirstOrDefault().Contains("next"))
+                    {
+                        _next = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                        _previous = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                        _last = new Uri(linkHeader[3].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                    }
+                    if (next == 1)
+                    {
+                        _next = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                        _last = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
 
+                    }
+
+                    if (!response.Result.header.FirstOrDefault().Contains("next"))
+                    {
+                        _previous = new Uri(linkHeader[1].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                        _last = new Uri(linkHeader[2].Split(',')[1].Replace('>', ' ').Replace('<', ' '));
+                    }
+                    if (next > 1 && response.Result.header.FirstOrDefault().Contains("next"))
+                    {
+                        paramPrevious = HttpUtility.ParseQueryString(_previous.Query).Get("_page");
+                        paramNext = HttpUtility.ParseQueryString(_next.Query).Get("_page");
+                        paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
+                    }
+                    if (next == 1)
+                    {
+                        paramPrevious = "1";
+                        paramNext = HttpUtility.ParseQueryString(_next.Query).Get("_page");
+                        paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
+                        responseData.IsFirst = true;
+                    }
+                    if (!response.Result.header.FirstOrDefault().Contains("next"))
+                    {
+                        paramLast = HttpUtility.ParseQueryString(_last.Query).Get("_page");
+                        paramPrevious = HttpUtility.ParseQueryString(_previous.Query).Get("_page");
+                        paramNext = paramLast;
+                        responseData.IsLast = true;
+                    }
+                }
 
                 responseData.Data = response.Result.data;
                 responseData.Next = int.Parse(paramNext);
@@ -283,6 +266,25 @@ namespace SourceApp.Mobile.Services
             {
                 var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
 
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
+                await Application.Current.MainPage.DisplayAlert("Error", stringBuilder.ToString(), "OK");
+                return default(T);
+            }
+        }
+        public async Task<T> Patch<T>(int id, object request)
+        {
+            var url = $"{_apiURL}/{_route}/{id}";
+            try
+            {
+                return await url.PatchJsonAsync(request).ReceiveJson<T>();
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
                 var stringBuilder = new StringBuilder();
                 foreach (var error in errors)
                 {

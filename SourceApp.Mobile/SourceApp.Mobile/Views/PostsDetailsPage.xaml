@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com" xmlns:controls="clr-namespace:SourceApp.Mobile.Controls"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SourceApp.Mobile.Views.PostsDetailsPage"
+             x:Name="PostsDetails"
+             >
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <!-- Normal Page Content -->
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               AbsoluteLayout.LayoutFlags="All">
+                <!-- Normal Page Content -->
+                <Frame CornerRadius="10"  
+                 OutlineColor="#f7faf8" 
+                 Padding="0"
+                 Margin="10" 
+                 HasShadow="True"  >
+                    <StackLayout >
+                        <StackLayout Orientation="Horizontal">
+                            
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Label LineBreakMode="TailTruncation" Padding="20,10,20,0" Text="{Binding TitlePost }" FontSize="20"></Label>
+                                <Label Padding="20, 0, 20, 0" Text="{Binding User }" ></Label>
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand">
+                                <Button Command="{Binding EditCommand }" Clicked="OnButtonClicked" IsVisible="{Binding VisibleEdit}"
+                                        BackgroundColor="#20c7f5"
+                                        ImageSource="edit.png" Margin="10" Padding="5"  HorizontalOptions="Center" HeightRequest="30"
+                                        WidthRequest="30" BorderRadius="3" 
+                                        CornerRadius="5" ></Button>
+                            </StackLayout>
+                            
+                        </StackLayout>
+                        <Label Padding="20" Text="{Binding BodyPost }" ></Label>
+                        <StackLayout Orientation="Horizontal">
+                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Label Padding="20" Text="{Binding Date }" ></Label>
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="FillAndExpand">
+                                <Button IsVisible="{Binding VisibleEdit}" Clicked="OnButtonClicked" Command="{Binding CommentCommand }" 
+                                        BackgroundColor="#20c7f5" Text="Reply"
+                                        Margin="10"
+                                        Padding="5" WidthRequest="70" HeightRequest="40"   TextColor="White"  HorizontalOptions="Center"
+                                        BorderRadius="3" 
+                            CornerRadius="5" ></Button>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+                <StackLayout>
+                    <ListView x:Name="test" RowHeight="100"  ItemsSource="{Binding CommentsList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Margin="10,0,10,0" VerticalOptions="Center" >
+                                        <Label  HorizontalOptions="CenterAndExpand" LineBreakMode="MiddleTruncation"
+                                       Text="{Binding body}"></Label>
+
+                                        <StackLayout Orientation="Horizontal">
+                                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <Label HorizontalOptions="CenterAndExpand"  VerticalOptions="EndAndExpand"  Text="01.01.2000 18:00:40" ></Label>
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <Label x:Name="lblMail" LineBreakMode="TailTruncation" HorizontalOptions="End" VerticalOptions="End" Text="{Binding email }" ></Label>
+                                            </StackLayout>
+                                            <StackLayout IsVisible="{Binding IsMine }" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <Button Command="{Binding BindingContext.CommentEditCommand, Source={x:Reference PostsDetails}}" CommandParameter="{Binding id}" Clicked="btnReply_Clicked" x:Name="btnReply" CornerRadius="5" BackgroundColor="#20c7f5" ImageSource="edit.png" Margin="70, 0 ,0 ,0" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="End"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <!--<Grid 
+                                    ColumnDefinitions="40*, 18.33*,40.33*"
+                                    RowDefinitions="40"
+                                    ColumnSpacing="8" 
+                                    HorizontalOptions="FillAndExpand">
+                                            <Label HorizontalOptions="CenterAndExpand"  VerticalOptions="EndAndExpand"  Text="01.01.2000 18:00:40" ></Label>
+                                            <Label x:Name="lblMail" Grid.Column="1" LineBreakMode="TailTruncation" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding email }" ></Label>
+                                            <Button IsVisible="False" Grid.Column="2"  x:Name="btnReply" CornerRadius="5" BackgroundColor="#20c7f5" ImageSource="edit.png" Margin="70, 0 ,0 ,0" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="End"/>
+                                        </Grid>-->
+
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
+            </StackLayout>
+            <ContentView x:Name="overlay"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               AbsoluteLayout.LayoutFlags="All"
+               IsVisible="False"
+               BackgroundColor="#C0808080"
+               Padding="10, 0">
+                <!-- Overlay -->
+                <Frame CornerRadius="10"  
+                 OutlineColor="#f7faf8" 
+                 Padding="0"
+                 Margin="10"
+                 VerticalOptions="CenterAndExpand"
+                 HasShadow="True"  >
+                        <StackLayout Orientation="Vertical"
+                        BackgroundColor="White"
+                        HeightRequest="350"
+                        WidthRequest="300"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        Margin="20"
+                        >
+                    <Label 
+                        FontSize="18"
+                        TextColor="Gray"
+                        HorizontalOptions="Fill"
+                        Text="{Binding TitlePost}" />
+                      
+                        <controls:CustomEditor IsVisible="{Binding IsEdit }" x:Name="EnteredName" Text="{Binding BodyPost}" BorderRadius="5"  HeightRequest="250"
+                                               BackgroundColor="#edebeb" ></controls:CustomEditor>
+                        <controls:CustomEditor IsVisible="{Binding IsComment }" x:Name="EnteredName2" Text="{Binding CommentPost}" BorderRadius="5"  HeightRequest="250"
+                                               BackgroundColor="#edebeb" ></controls:CustomEditor>
+                        <controls:CustomEditor IsVisible="{Binding IsEditReply }" x:Name="EnteredName3" Text="{Binding CommentPost}" BorderRadius="5"  HeightRequest="250"
+                                               BackgroundColor="#edebeb" ></controls:CustomEditor>
+                        <StackLayout Orientation="Horizontal"
+                        HorizontalOptions="End">
+
+                        <Button IsVisible="{Binding IsEditReply}" Command="{Binding DeleteCommand }"  Text="Delete" TextColor="White" CornerRadius="5"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
+                        Clicked="OnCancelButtonClicked"/>
+
+                        <Button Text="Cancel" TextColor="White" CornerRadius="5"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
+                        Clicked="OnCancelButtonClicked"/>
+
+                        <Button Command="{Binding SaveCommand}" BackgroundColor="#20c7f5" TextColor="White" Text="Save" CornerRadius="5"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="EndAndExpand"
+                        Clicked="OnOKButtonClicked" />
+                    </StackLayout>
+
+
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+        </AbsoluteLayout>
+
+        <!--<StackLayout>
+      
+    </StackLayout>-->
+    </ContentPage.Content>
+
+</ContentPage>

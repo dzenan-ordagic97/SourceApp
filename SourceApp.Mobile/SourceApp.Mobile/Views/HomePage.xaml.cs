@@ -6,16 +6,17 @@ namespace SourceApp.Mobile.Views
 {
     public partial class HomePage : ContentPage
     {
-        private HomePageViewModel model = null;
+        //private HomePageViewModel model = null;
 
         public HomePage()
         {
             InitializeComponent();
+            //BindingContext = model = new HomePageViewModel(null);
         }
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
-
+            //await model.Init2();
         }
     }
 }

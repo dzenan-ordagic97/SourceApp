@@ -18,6 +18,7 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ExportRenderer(typeof(EntryEx), typeof(EntryExRenderer))]
 namespace SourceApp.Mobile.Droid.Renderers
 {
+#pragma warning disable CS0618 // Type or member is obsolete
     public class EntryExRenderer : EntryRenderer
     {
         #region Private fields and properties
@@ -122,4 +123,5 @@ namespace SourceApp.Mobile.Droid.Renderers
 
         #endregion
     }
+#pragma warning restore CS0618 // Type or member is obsolete
 }

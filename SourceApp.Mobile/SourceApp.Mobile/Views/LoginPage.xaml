@@ -7,10 +7,14 @@
     <ContentPage.Content>
         <StackLayout Spacing="0"  Padding="20">
             <StackLayout VerticalOptions="CenterAndExpand">
-                <Image Source="SourceLogo.png" />
-
-                <controls:EntryEx x:Name="CustomEntry" Placeholder="E-mail" Text="{Binding Email}" BackgroundColor="#edebeb"></controls:EntryEx>
-                <Button BackgroundColor="#20c7f5" TextColor="White" HorizontalOptions="Center" BorderRadius="3" Command="{Binding LoginCommand}" 
+                <StackLayout Padding="0, 0 ,0 ,50">
+                    <Image Source="SourceLogo.png" />
+                </StackLayout>
+                <controls:EntryEx x:Name="CustomEntry" BorderWidth="0" BorderRadius="7" BorderColor="White" LeftPadding="10" RightPadding="10"
+                   HorizontalOptions="Center" Placeholder="E-mail" Text="{Binding Email}" HeightRequest="50" WidthRequest="270"
+                   BackgroundColor="#edebeb"></controls:EntryEx>
+                <Button BackgroundColor="#20c7f5" TextColor="White" HorizontalOptions="Center" BorderRadius="3"
+                        Command="{Binding LoginCommand}" 
                         Text="SIGN IN"
                         FontAttributes="Bold"
                         CornerRadius="5"

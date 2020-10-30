@@ -33,6 +33,7 @@ namespace SourceApp.Mobile
             containerRegistry.RegisterForNavigation<PostsPage, PostsPageViewModel>();
             containerRegistry.RegisterForNavigation<GalleryPage, GalleryPageViewModel>();
             containerRegistry.RegisterForNavigation<AccountPage, AccountPageViewModel>();
+            containerRegistry.RegisterForNavigation<PostsDetailsPage, PostsDetailsPageViewModel>();
         }
     }
 }
