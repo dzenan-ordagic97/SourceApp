@@ -50,34 +50,29 @@
                     </StackLayout>
                 </Frame>
                 <StackLayout>
-                    <ListView x:Name="test" RowHeight="100"  ItemsSource="{Binding CommentsList}">
+                    <ListView x:Name="test" RowHeight="70"  ItemsSource="{Binding CommentsList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout Margin="10,0,10,0" VerticalOptions="Center" >
-                                        <Label  HorizontalOptions="CenterAndExpand" LineBreakMode="MiddleTruncation"
+                                        <Label  HorizontalOptions="StartAndExpand" LineBreakMode="TailTruncation"
                                        Text="{Binding body}"></Label>
 
                                         <StackLayout Orientation="Horizontal">
                                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                                <Label HorizontalOptions="CenterAndExpand"  VerticalOptions="EndAndExpand"  Text="01.01.2000 18:00:40" ></Label>
+                                                <Label HorizontalOptions="StartAndExpand"  VerticalOptions="EndAndExpand" Text="01.01.2000 18:00:40" ></Label>
                                             </StackLayout>
                                             <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                                <Label x:Name="lblMail" LineBreakMode="TailTruncation" HorizontalOptions="End" VerticalOptions="End" Text="{Binding email }" ></Label>
+                                                <Label  LineBreakMode="TailTruncation" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Text="{Binding email }" ></Label>
                                             </StackLayout>
                                             <StackLayout IsVisible="{Binding IsMine }" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                                <Button Command="{Binding BindingContext.CommentEditCommand, Source={x:Reference PostsDetails}}" CommandParameter="{Binding id}" Clicked="btnReply_Clicked" x:Name="btnReply" CornerRadius="5" BackgroundColor="#20c7f5" ImageSource="edit.png" Margin="70, 0 ,0 ,0" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="End"/>
+                                                <Button Command="{Binding BindingContext.CommentEditCommand, Source={x:Reference PostsDetails}}"
+                                                        CommandParameter="{Binding id}" Clicked="btnReply_Clicked" x:Name="btnReply" CornerRadius="5"
+                                                        BackgroundColor="#20c7f5" ImageSource="edit.png"  HeightRequest="30" WidthRequest="30"
+                                                        HorizontalOptions="Center" VerticalOptions="End"/>
                                             </StackLayout>
                                         </StackLayout>
-                                        <!--<Grid 
-                                    ColumnDefinitions="40*, 18.33*,40.33*"
-                                    RowDefinitions="40"
-                                    ColumnSpacing="8" 
-                                    HorizontalOptions="FillAndExpand">
-                                            <Label HorizontalOptions="CenterAndExpand"  VerticalOptions="EndAndExpand"  Text="01.01.2000 18:00:40" ></Label>
-                                            <Label x:Name="lblMail" Grid.Column="1" LineBreakMode="TailTruncation" HorizontalOptions="Center" VerticalOptions="End" Text="{Binding email }" ></Label>
-                                            <Button IsVisible="False" Grid.Column="2"  x:Name="btnReply" CornerRadius="5" BackgroundColor="#20c7f5" ImageSource="edit.png" Margin="70, 0 ,0 ,0" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" VerticalOptions="End"/>
-                                        </Grid>-->
+                                       
 
                                     </StackLayout>
                                 </ViewCell>
@@ -111,7 +106,7 @@
                     <Label 
                         FontSize="18"
                         TextColor="Gray"
-                        HorizontalOptions="Fill"
+                        HorizontalOptions="Fill" LineBreakMode="TailTruncation"
                         Text="{Binding TitlePost}" />
                       
                         <controls:CustomEditor IsVisible="{Binding IsEdit }" x:Name="EnteredName" Text="{Binding BodyPost}" BorderRadius="5"  HeightRequest="250"
@@ -123,7 +118,7 @@
                         <StackLayout Orientation="Horizontal"
                         HorizontalOptions="End">
 
-                        <Button IsVisible="{Binding IsEditReply}" Command="{Binding DeleteCommand }"  Text="Delete" TextColor="White" CornerRadius="5"
+                            <Button IsVisible="{Binding IsEditReply}" Command="{Binding DeleteCommand }" BackgroundColor="#f71e1e"  Text="Delete" TextColor="White" CornerRadius="5"
                         VerticalOptions="CenterAndExpand"
                         HorizontalOptions="Center"
                         Clicked="OnCancelButtonClicked"/>

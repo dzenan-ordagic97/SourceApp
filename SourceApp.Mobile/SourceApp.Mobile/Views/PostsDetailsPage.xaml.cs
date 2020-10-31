@@ -43,5 +43,7 @@ namespace SourceApp.Mobile.Views
         {
             overlay.IsVisible = true;
         }
+
+        
     }
 }

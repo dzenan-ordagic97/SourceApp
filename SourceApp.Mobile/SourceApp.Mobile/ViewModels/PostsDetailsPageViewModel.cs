@@ -122,7 +122,6 @@ namespace SourceApp.Mobile.ViewModels
             {
                 CommentsList.Add(item);
             }
-            await Application.Current.MainPage.DisplayAlert("OK", "Succesful delete", "OK");
             IsEditReply = false;
             CommentPost = "";
         }
@@ -152,7 +151,8 @@ namespace SourceApp.Mobile.ViewModels
             CommentsList.Clear();
             foreach (var comment in commentsList)
             {
-                comment.IsMine = comment.email.Equals(RestService.Session.email);
+                var result = comment.email.Substring(0, comment.email.IndexOf('@'));
+                comment.email = result;
                 CommentsList.Add(comment);
             }
         }
@@ -183,7 +183,6 @@ namespace SourceApp.Mobile.ViewModels
             var comment = await _serviceComments.Insert<Model.Comments>(request);
             comment.IsMine = true;
             CommentsList.Insert(0, comment);
-            await Application.Current.MainPage.DisplayAlert("OK", "Succesful update", "OK");
             IsComment = false;
         }
 
@@ -195,7 +194,6 @@ namespace SourceApp.Mobile.ViewModels
             };
             var post = await _service.Patch<Model.Post>(postId, request);
             BodyPost = post.body;
-            await Application.Current.MainPage.DisplayAlert("OK", "Succesful update", "OK");
             IsEdit = false;
         }
         private async Task UpdateReply()
@@ -215,7 +213,6 @@ namespace SourceApp.Mobile.ViewModels
             {
                 CommentsList.Add(item);
             }
-            await Application.Current.MainPage.DisplayAlert("OK", "Succesful update", "OK");
             IsEditReply = false;
             CommentPost = "";
         }

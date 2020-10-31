@@ -10,17 +10,19 @@
                  OutlineColor="#f7faf8" 
                  Padding="0"
                  Margin="10" 
-                 HasShadow="True"  >
-                <StackLayout >
+                 HasShadow="True"
+                 HeightRequest="1200"
+                  >
+                <StackLayout>
                     <Label Padding="20" Text="Latest posts" FontSize="20"></Label>
-                    <ListView HorizontalOptions="FillAndExpand"  ItemsSource="{Binding PostsList}">
+                    <ListView SelectedItem=""  ItemSelected="ListView_ItemSelected"  RowHeight="80" HorizontalOptions="FillAndExpand" ItemsSource="{Binding PostsList}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout  Margin="10,0,10,0" VerticalOptions="Center">
                                         <Label LineBreakMode="TailTruncation" WidthRequest="50"
                                        Text="{Binding title}"></Label>
-                                        <Label  LineBreakMode="TailTruncation" FontSize="10" Text="{Binding body}"></Label>
+                                        <Label   FontSize="10" Text="{Binding body}"></Label>
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
@@ -68,18 +70,7 @@
                                    SelectedIndicatorColor="DarkGray"
                                    HorizontalOptions="Center"
                                    Padding="10"/>
-                    <!--<ListView HorizontalOptions="FillAndExpand"  ItemsSource="{Binding PhotosList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout  Padding="0, 20" VerticalOptions="Center">
-                                        <Image Source="{Binding thumbnailUrl}"></Image>
-                                       
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
+                    
                     
                 </StackLayout>
             </Frame>

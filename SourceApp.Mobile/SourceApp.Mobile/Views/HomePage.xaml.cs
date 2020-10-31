@@ -6,17 +6,20 @@ namespace SourceApp.Mobile.Views
 {
     public partial class HomePage : ContentPage
     {
-        //private HomePageViewModel model = null;
-
         public HomePage()
         {
             InitializeComponent();
-            //BindingContext = model = new HomePageViewModel(null);
         }
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            //await model.Init2();
         }
+
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new PostsDetailsPage(((SourceApp.Mobile.Model.Post)e.SelectedItem).id));
+        }
+
+        
     }
 }

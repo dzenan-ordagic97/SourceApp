@@ -9,6 +9,8 @@ namespace SourceApp.Mobile.Views
         public GalleryPage()
         {
             InitializeComponent();
+
         }
+       
     }
 }

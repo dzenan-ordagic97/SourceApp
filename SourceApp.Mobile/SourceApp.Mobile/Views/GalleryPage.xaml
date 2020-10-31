@@ -4,5 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="SourceApp.Mobile.Views.GalleryPage">
-  
+    <StackLayout>
+        <Label Text="Under construction :)"></Label>
+    </StackLayout>
 </ContentPage>

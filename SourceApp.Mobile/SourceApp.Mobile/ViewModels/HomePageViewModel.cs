@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using ImTools;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Navigation.TabbedPages;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -54,6 +56,10 @@ namespace SourceApp.Mobile.ViewModels
             PostsList.Clear();
             foreach (var post in postsList)
             {
+                if(post.body.Length > 150)
+                {
+                    post.body = string.Concat(post.body.Substring(0, 50), "...");
+                }
                 PostsList.Add(post);
             }
         }

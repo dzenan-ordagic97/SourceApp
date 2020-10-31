@@ -18,8 +18,9 @@ namespace SourceApp.Mobile.ViewModels
 
         public GalleryPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-        }
 
+        }
         
+
     }
 }

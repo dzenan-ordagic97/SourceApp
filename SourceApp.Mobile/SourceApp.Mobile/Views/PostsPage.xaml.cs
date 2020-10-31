@@ -35,5 +35,7 @@ namespace SourceApp.Mobile.Views
         {
             await Navigation.PushAsync(new PostsDetailsPage(((SourceApp.Mobile.Model.Post)e.SelectedItem).id));
         }
+
+       
     }
 }
