@@ -58,7 +58,7 @@ namespace SourceApp.Mobile.ViewModels
             {
                 if(post.body.Length > 150)
                 {
-                    post.body = string.Concat(post.body.Substring(0, 50), "...");
+                    post.body = string.Concat(post.body.Substring(0, 150), "...");
                 }
                 PostsList.Add(post);
             }

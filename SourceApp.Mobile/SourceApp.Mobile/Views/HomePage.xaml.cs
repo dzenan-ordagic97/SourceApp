@@ -13,8 +13,8 @@ namespace SourceApp.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-        }
 
+        }
         private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             await Navigation.PushAsync(new PostsDetailsPage(((SourceApp.Mobile.Model.Post)e.SelectedItem).id));

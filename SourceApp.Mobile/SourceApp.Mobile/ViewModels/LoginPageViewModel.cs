@@ -43,14 +43,10 @@ namespace SourceApp.Mobile.ViewModels
                 RestService.Session.email = user[0].email;
                 RestService.Session.username = user[0].username;
                 RestService.Session.id = user[0].id;
-                var page = new NavigationPage(new WelcomeTabbedPage());
-                Application.Current.MainPage = page;
-                //await NavigationService.NavigateAsync("/NavigationPage/WelcomeTabbedPage");
+                //var page = new NavigationPage(new WelcomeTabbedPage());
+                //Application.Current.MainPage = page;
+                await NavigationService.NavigateAsync("/NavigationPage/WelcomeTabbedPage");
             }
-            //else
-            //{
-            //    //await Application.Current.MainPage.DisplayAlert("Error", "You don't have permission!", "OK");
-            //}
         }
     }
 }
